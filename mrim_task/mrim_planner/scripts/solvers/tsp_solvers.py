@@ -110,6 +110,8 @@ class TSPSolver3D():
                 #   - You will probably see that computing for all poses from both sets takes a long time.
                 #   - Think if you can limit the number of computations or decide which distance-estimating method use for each point-pair.
 
+
+
                 # get poses of the viewpoints
                 g1 = viewpoints[a].pose
                 g2 = viewpoints[b].pose
@@ -118,7 +120,7 @@ class TSPSolver3D():
                 path, distance = self.compute_path(g1, g2, path_planner, path_planner['distance_estimation_method'])
 
                 #compute here the time of the path
-
+                #If distance is very large don't consider this path
                 # store paths/distances in matrices
                 self.paths[(a, b)]   = path
                 self.distances[a][b] = distance

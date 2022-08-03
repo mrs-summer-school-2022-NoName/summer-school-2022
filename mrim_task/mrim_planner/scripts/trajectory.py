@@ -466,7 +466,6 @@ class TrajectoryUtils():
             # Convert to Trajectory class
             poses      = [Pose(q[0], q[1], q[2], q[3]) for q in samples]
             trajectory = self.posesToTrajectory(poses)
-
         return trajectory
     # #}
 

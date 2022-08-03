@@ -182,6 +182,8 @@ class MrimPlanner:
                 point = vp.pose.point
                 if pointCollidesWithObstacles(point, [Point(o.x, o.y, o.z) for o in problem.obstacle_points], self._path_planner['safety_distance']):
                     rospy.logwarn('VP at {:s} collides with obstacles.'.format(point))
+
+                    #TODO: change VP so it will not collide with obstacels or expand the problematic obstacle
         # plotter.show(legend=True)
 
         # # #{ Solve TSP to obtain waypoint path
