@@ -459,8 +459,7 @@ class TrajectoryUtils():
             #  - check documentation for TOPPRA (look for eval() function): https://hungpham2511.github.io/toppra/index.html
             #  - use 'toppra_trajectory' and the predefined sampling step 'sampling_step'
 
-            ts_sample = np.linspace(0, toppra_trajectory.get_duration(), int(np.ceil(toppra_trajectory.get_duration() / sampling_step)))
-            #qs_sample =  toppra_trajectory.eval(ts_sample) # sampled joint positions
+            ts_sample = np.linspace(0, toppra_trajectory.duration, int(np.ceil(toppra_trajectory.duration / sampling_step)))
 
             samples = toppra_trajectory.eval(ts_sample)  # [STUDENTS TODO] Fill this variable with trajectory samples
 
@@ -574,9 +573,8 @@ class TrajectoryUtils():
         path       = ta.SplineInterpolator(np.linspace(0, 1, len(waypoints)), wp_lists)
         pc_vel     = constraint.JointVelocityConstraint(v_lims)
         pc_acc     = constraint.JointAccelerationConstraint(a_lims)
-        #instance   = algo.TOPPRA([pc_vel, pc_acc], path, parametrizer="ParametrizeConstAccel")
-        instance   = algo.TOPPRA([pc_vel, pc_acc], path, solver_wrapper = 'seidel')
-        trajectory = instance.compute_trajectory(0,0)
+        instance   = algo.TOPPRA([pc_vel, pc_acc], path, parametrizer="ParametrizeConstAccel")
+        trajectory = instance.compute_trajectory()
 
         return trajectory
     # #} end of computeTimeParametrization()
