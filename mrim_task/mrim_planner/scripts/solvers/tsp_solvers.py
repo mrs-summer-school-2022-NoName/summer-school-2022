@@ -8,6 +8,7 @@ import numpy as np
 from random import randint
 
 from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
 from scipy.spatial.kdtree import KDTree
 
 from utils import *
@@ -115,6 +116,8 @@ class TSPSolver3D():
 
                 # estimate distances between the viewpoints
                 path, distance = self.compute_path(g1, g2, path_planner, path_planner['distance_estimation_method'])
+
+                #compute here the time of the path
 
                 # store paths/distances in matrices
                 self.paths[(a, b)]   = path
@@ -262,6 +265,48 @@ class TSPSolver3D():
             clusters (Kx list): clusters of points indexed for each robot:
         '''
         k = problem.number_of_robots
+
+        ## | ------------------ Gaussian Clustering ------------------- |
+        if method == 'gaussian':
+            # Prepare positions of the viewpoints in the world
+            positions = np.array([vp.pose.point.asList() for vp in viewpoints])
+
+            # define the model
+            gaussian_model = GaussianMixture(n_components=2)
+
+            # train the model
+            gaussian_model.fit(positions)
+
+            # assign each data point to a cluster
+            gaussian_result = gaussian_model.predict(positions)
+
+            # get all of the unique clusters
+            gaussian_clusters = np.unique(gaussian_result)
+
+            labels = np.zeros(len(positions))
+            for gaussian_cluster in gaussian_clusters:
+                # get data points that fall in this cluster
+                index = np.where(gaussian_result == gaussian_cluster)
+                labels[index] = index
+
+            cluster_0_center = np.mean(positions[0])
+            cluster_1_center = np.mean(positions[1])
+            for i in range(len(positions)):
+                if labels[i] == 0 and np.linalg.norm(cluster_1_center-positions[i])< np.linalg.norm(cluster_0_center-positions[i]):
+                    labels[i] = 1
+                elif labels[i] == 1 and np.linalg.norm(cluster_0_center-positions[i]) < np.linalg.norm(cluster_1_center-positions[i]):
+                    labels[i] = 0
+            #  - after finding the labels, you may want to swap the classes (e.g., by looking at the distance of the UAVs from the cluster centers)
+            clusters = []
+            for r in range(k):
+                clusters.append([])
+
+                for label in range(len(labels)):
+                    if labels[label] == r:
+                        clusters[r].append(viewpoints[label])
+
+            return clusters
+
 
         ## | ------------------- K-Means clustering ------------------- |
         if method == 'kmeans':

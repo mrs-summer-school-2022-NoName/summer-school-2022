@@ -164,6 +164,7 @@ class TrajectoryUtils():
         idx = 0
         while idx != (len(waypoints) - 1):
             g_from  = waypoints[idx]
+            starting_idx = idx
 
             # Find subtraj: sequence of poses (included) with defined heading
             subtraj = [g_from]
@@ -200,8 +201,12 @@ class TrajectoryUtils():
                 #  - interpolate the heading linearly (create a function of distance between two points of the subpath)
                 #  - do not forget to wrap angle to <-pi, pi) (see/use wrapAngle() in utils.py)
 
+                subtraj_d_hdg = subtraj[-1].heading - subtraj[0].heading
+                d_hdg_single = subtraj_d_hdg/len(subtraj)
+                waypoints[starting_idx+i].heading = waypoints[starting_idx+(i-1)].heading + d_hdg_single
+
                 # [STUDENTS TODO] Change variable 'hdg_interp', nothing else
-                hdg_interp = waypoints[0].heading
+                hdg_interp = waypoints[starting_idx+i].heading
 
                 # replace heading
                 hdg_from   = hdg_interp
@@ -415,17 +420,17 @@ class TrajectoryUtils():
 
                 # Sample waypoint-to-waypoint line segments with stops at each start and end
                 poses, _ = self.sampleStraightSegmentWithStops(pose_from, pose_to)
-
+                # list of poses along the line segment
                 # Add starting pose
                 if w_idx == 1:
                     poses = [pose_from] + poses
-
+                #print to check
                 trajectory.setSegment(w_idx - 1, poses)
 
         else:
 
             # If path smoothing is required, smooth the path
-            if smooth_path:
+            if smooth_path: #by default it is required
                 print('[SMOOTHING PATH]')
                 waypoints = self.getSmoothPath(trajectory.waypoints, smoothing_la_dist, smoothing_sampling_step)
 
@@ -444,12 +449,15 @@ class TrajectoryUtils():
             sampling_step = trajectory.dT
 
             # STUDENTS TODO: Sample the path parametrization 'toppra_trajectory' (instance of TOPPRA library).
-            raise NotImplementedError('[STUDENTS TODO] Trajectory sampling not finished. You have to implement it on your own.')
+            #raise NotImplementedError('[STUDENTS TODO] Trajectory sampling not finished. You have to implement it on your own.')
             # Tips:
             #  - check documentation for TOPPRA (look for eval() function): https://hungpham2511.github.io/toppra/index.html
             #  - use 'toppra_trajectory' and the predefined sampling step 'sampling_step'
 
-            samples = [] # [STUDENTS TODO] Fill this variable with trajectory samples
+            ts_sample = np.linspace(0, toppra_trajectory.get_duration(), int(np.ceil(toppra_trajectory.get_duration() / sampling_step)))
+            #qs_sample =  toppra_trajectory.eval(ts_sample) # sampled joint positions
+
+            samples = toppra_trajectory.eval(ts_sample)  # [STUDENTS TODO] Fill this variable with trajectory samples
 
             # Convert to Trajectory class
             poses      = [Pose(q[0], q[1], q[2], q[3]) for q in samples]
@@ -561,8 +569,9 @@ class TrajectoryUtils():
         path       = ta.SplineInterpolator(np.linspace(0, 1, len(waypoints)), wp_lists)
         pc_vel     = constraint.JointVelocityConstraint(v_lims)
         pc_acc     = constraint.JointAccelerationConstraint(a_lims)
-        instance   = algo.TOPPRA([pc_vel, pc_acc], path, parametrizer="ParametrizeConstAccel")
-        trajectory = instance.compute_trajectory()
+        #instance   = algo.TOPPRA([pc_vel, pc_acc], path, parametrizer="ParametrizeConstAccel")
+        instance   = algo.TOPPRA([pc_vel, pc_acc], path, solver_wrapper = 'seidel')
+        trajectory = instance.compute_trajectory(0,0)
 
         return trajectory
     # #} end of computeTimeParametrization()
@@ -603,7 +612,6 @@ class TrajectoryUtils():
         ## |  [COLLISION AVOIDANCE METHOD #2]: Delay UAV with shorter trajectory at start until there is no collision occurring  |
         elif method == 'delay_till_no_collisions_occur':
 
-            raise NotImplementedError('[STUDENTS TODO] Collision prevention method \'delay_till_no_collisions_occur\' not finished. You have to finish it on your own.')
             # Tips:
             #  - you might select which trajectory it is better to delay
             #  - the smallest delay step is the sampling step stored in variable 'self.dT'
@@ -613,14 +621,21 @@ class TrajectoryUtils():
             traj_lens  = [t.getLength() for t in trajectories]
 
             # Decide which UAV should be delayed
-            # [STUDENTS TODO] CHANGE BELOW
-            delay_robot_idx, nondelay_robot_idx = 0, 1
+            if traj_times[0] > traj_times[1]:
+                delay_robot_idx, nondelay_robot_idx = 1, 0
+            else:
+                delay_robot_idx, nondelay_robot_idx = 0, 1
+            #delay_robot_idx, nondelay_robot_idx = 0, 1
 
             # TIP: use function `self.trajectoriesCollide()` to check if two trajectories are in collision
+            #don't use delay up to index -1 of collision. Delay the drone with the shortest trajectory by dt- check
+            #again if collision occurs, if not delay only by dT else delay by another dT and check again.
+
             collision_flag, collision_idx = \
                 self.trajectoriesCollide(trajectories[delay_robot_idx], trajectories[nondelay_robot_idx], safety_distance)
 
             i = 0
+            print('collison time is' + str(collision_idx))
             while collision_flag:
 
                 # delay the shorter-trajectory UAV at the start point by sampling period
@@ -631,6 +646,13 @@ class TrajectoryUtils():
                     trajectories[delay_robot_idx].delayStart(delay_step)
                 else:
                     collision_flag = False
+                #delaySegment(seg_idx, t, at_start=False)
+                trajectories[delay_robot_idx].delaySegment(collision_idx, delay_step, at_start=False)
+                #trajectories[delay_robot_idx].delayStart(delay_step)
+                collision_flag, collision_idx = \
+                    self.trajectoriesCollide(trajectories[delay_robot_idx], trajectories[nondelay_robot_idx],
+                                             safety_distance)
+
 
         # # #}
 

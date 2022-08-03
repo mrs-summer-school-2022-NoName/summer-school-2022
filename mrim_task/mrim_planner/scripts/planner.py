@@ -155,6 +155,7 @@ class MrimPlanner:
 
         # Cluster the rest of the viewpoints into two separate groups
         clusters = tsp_solver.clusterViewpoints(problem, nonclustered_vps, method=self._tsp_clustering_method)
+        # clustering is performed only on non-assigned purple view points
         for r in range(problem.number_of_robots):
             viewpoints[r].extend(clusters[r])
 

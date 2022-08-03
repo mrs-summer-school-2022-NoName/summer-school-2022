@@ -72,6 +72,8 @@ class Node:
         b = self.pos[1] - self.goal[1]
         c = self.pos[2] - self.goal[2]
 
+        return np.sqrt(a**2 + b**2 + c**2) + np.max(np.abs([a,b,c]))*2
+
         raise NotImplementedError('[STUDENTS TODO] Heuristic function guiding the state space exploration not implemented. You have to finish it on your own.')
 # # #}
 
