@@ -34,7 +34,7 @@ path_smoothing:
 
 # Parameters for sampling the UAVs' trajectories
 trajectory_sampling:
-  with_stops: False # [STUDENTS TODO: implement better method than the default] If true, UAVs will stop at each waypoint (default: true) # Done
+  with_stops: false # [STUDENTS DONE: implement better method than the default] If true, UAVs will stop at each waypoint (default: true)
 
 # Parameters for UAV-to-UAV collision avoidance
 collision_avoidance:
