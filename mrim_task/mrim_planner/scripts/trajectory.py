@@ -461,6 +461,8 @@ class TrajectoryUtils():
 
             ts_sample = np.linspace(0, toppra_trajectory.duration, int(np.ceil(toppra_trajectory.duration / sampling_step)))
 
+            ts_sample = np.arange(0, toppra_trajectory.duration, sampling_step)
+            
             samples = toppra_trajectory.eval(ts_sample)  # [STUDENTS DONE] Fill this variable with trajectory samples
 
             # Convert to Trajectory class

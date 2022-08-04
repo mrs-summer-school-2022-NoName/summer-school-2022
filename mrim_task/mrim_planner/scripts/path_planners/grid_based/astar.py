@@ -72,7 +72,7 @@ class Node:
         b = self.pos[1] - self.goal[1]
         c = self.pos[2] - self.goal[2]
 
-        return np.sqrt(a**2 + b**2 + c**2) + np.max(np.abs([a,b,c]))*2
+        return np.sqrt(a**2 + b**2 + c**2) + np.max(np.abs([a,b, c]))*2
 
         raise NotImplementedError('[STUDENTS TODO] Heuristic function guiding the state space exploration not implemented. You have to finish it on your own.')
 # # #}
@@ -110,7 +110,7 @@ class AStar():
             # [STUDENTS TODO] Replace seg1 and seg2 variables effectively
             
             seg1 = self.halveAndTest(path[0:int(len(path)/2)])
-            seg2= self.halveAndTest(path[int(len(path)/2):-1])
+            seg2 = self.halveAndTest(path[int(len(path)/2):])
             seg1.extend(seg2)
             return seg1
         
@@ -135,7 +135,17 @@ class AStar():
                 node = node.parent
             path.append(start)
             if self.straighten:
-                path = self.halveAndTest(path)
+
+                self.halveAndTest(path)
+
+                # new_path = []
+                # skp = 5 if len(path) > 5 else len(path)
+                # for i in range(0, len(path), skp):
+                #     newpt = self.halveAndTest(path[i:i+skp])
+                #     new_path.extend(newpt)
+                
+                # path = new_path
+
             path.reverse()
             for node in path:
                 path_m.append(self.grid.indexToMetric(node))

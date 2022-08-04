@@ -102,7 +102,8 @@ class TSPSolver3D():
         # find path between each pair of goals (a, b)
         for a in range(n):
             for b in range(n):
-                if a == b:
+                # if a == b:
+                if a >= b:
                     continue
 
                 # [STUDENTS TODO]
@@ -123,7 +124,9 @@ class TSPSolver3D():
                 #If distance is very large don't consider this path
                 # store paths/distances in matrices
                 self.paths[(a, b)]   = path
+                self.paths[(b,a)] = [x for x in reversed(path)]
                 self.distances[a][b] = distance
+                self.distances[b][a] = distance
 
         # compute TSP tour
         path = self.compute_tsp_tour(viewpoints, path_planner)
@@ -310,18 +313,61 @@ class TSPSolver3D():
             return clusters
 
 
+        # ## | ------------------- K-Means clustering ------------------- |
+        # if method == 'kmeans':
+        #     # Prepare positions of the viewpoints in the world
+        #     positions = np.array([vp.pose.point.asList() for vp in viewpoints])
+
+        #     raise NotImplementedError('[STUDENTS TODO] KMeans clustering of viewpoints not implemented. You have to finish it on your own')
+        #     # Tips:
+        #     #  - utilize sklearn.cluster.KMeans implementation (https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
+        #     #  - after finding the labels, you may want to swap the classes (e.g., by looking at the distance of the UAVs from the cluster centers)
+
+        #     # TODO: fill 1D list 'labels' of size len(viewpoints) with indices of the robots
+        #     labels = [randint(0, k - 1) for vp in viewpoints]
+
+
         ## | ------------------- K-Means clustering ------------------- |
-        if method == 'kmeans':
-            # Prepare positions of the viewpoints in the world
-            positions = np.array([vp.pose.point.asList() for vp in viewpoints])
+        if method == 'kmeans':            
+            positions = np.array([vp.pose.point.asList() for vp in viewpoints])            # define the model
 
-            raise NotImplementedError('[STUDENTS TODO] KMeans clustering of viewpoints not implemented. You have to finish it on your own')
-            # Tips:
-            #  - utilize sklearn.cluster.KMeans implementation (https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
+            print("positions")
+            print(positions)
+
+            
+            kmeans_model = KMeans(n_clusters=2, random_state=0)            # assign each data point to a cluster
+            kmeans_result = kmeans_model.fit_predict(positions)
+            # get all of the unique clusters
+            kmeans_clusters = np.unique(kmeans_result)            
+            labels = np.zeros(len(positions))
+            for kmeans_cluster in kmeans_clusters:
+                # get data points that fall in this cluster
+                index = np.where(kmeans_result == kmeans_cluster)
+                labels[index] = index
+                labels[index] = index
+                if kmeans_cluster == 0:
+                    cluster_0_center = np.mean(positions[index])
+                else:
+                    cluster_1_center = np.mean(positions[index])            
+                    
+            for i in range(len(positions)):
+                if labels[i] == 0 and np.linalg.norm(cluster_1_center - positions[i]) < np.linalg.norm(
+                        cluster_0_center - positions[i]):
+                    labels[i] = 1
+                elif labels[i] == 1 and np.linalg.norm(cluster_0_center - positions[i]) < np.linalg.norm(
+                        cluster_1_center - positions[i]):
+                    labels[i] = 0
             #  - after finding the labels, you may want to swap the classes (e.g., by looking at the distance of the UAVs from the cluster centers)
+            clusters = []
+            for r in range(k):
+                clusters.append([])                
+                for label in range(len(labels)):
+                    if labels[label] == r:
+                        clusters[r].append(viewpoints[label])            
+                
+            return clusters
 
-            # TODO: fill 1D list 'labels' of size len(viewpoints) with indices of the robots
-            labels = [randint(0, k - 1) for vp in viewpoints]
+
 
         ## | -------------------- Random clustering ------------------- |
         else:
