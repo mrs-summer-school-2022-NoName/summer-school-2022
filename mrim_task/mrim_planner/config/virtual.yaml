@@ -1,5 +1,5 @@
 problem:
-  name: "single_tower.problem" # [single_tower.problem, four_towers_small.problem, four_towers_large.problem]
+  name: "four_towers_small.problem" # [single_tower.problem, four_towers_small.problem, four_towers_large.problem]
   plot: False
 
 # Parameters for Traveling Salesman Problem
@@ -25,12 +25,12 @@ path_planner:
 
   # A* method parameters
   astar:
-    grid_resolution: 0.2 # (m)
+    grid_resolution: 0.3 # (m)
 
 # Parameters for path smoothing
 path_smoothing:
-  sampling_step: 0.1  # (m)
-  lookahead_dist: 0.3 # (m)
+  sampling_step: 0.25  # (m)
+  lookahead_dist: 0.5 # (m)
 
 # Parameters for sampling the UAVs' trajectories
 trajectory_sampling:

@@ -31,30 +31,30 @@
     <remap from="start_monitoring_in"       to="~start_monitoring" />
 
     # Remap subscribers
-    <remap from="trajectory_1_in"       to="/mrim_planner/trajectory_1" />
-    <remap from="trajectory_2_in"       to="/mrim_planner/trajectory_2" />
-    <remap from="uav_state_1_in"        to="/uav1/odometry/uav_state" />
-    <remap from="uav_state_2_in"        to="/uav2/odometry/uav_state" />
-    <remap from="inspection_problem_in" to="/mrim_planner/problem" />
-    <remap from="pause_playback_in"     to="/pause_playback" />
+    <remap from="trajectory_1_in"       to="mrim_planner/trajectory_1" />
+    <remap from="trajectory_2_in"       to="mrim_planner/trajectory_2" />
+    <remap from="uav_state_1_in"        to="uav1/odometry/uav_state" />
+    <remap from="uav_state_2_in"        to="uav2/odometry/uav_state" />
+    <remap from="inspection_problem_in" to="mrim_planner/problem" />
+    <remap from="pause_playback_in"     to="pause_playback" />
 
     # Remap publishers
-    <remap from="inspection_points_out" to="/visualization/inspection_points" />
-    <remap from="view_points_out" to="/visualization/view_points" />
-    <remap from="collisions_out" to="/visualization/collisions" />
-    <remap from="cloud_out" to="/visualization/obstacles" />
-    <remap from="safety_area_out" to="/visualization/safety_area" />
-    <remap from="starting_points_out" to="/visualization/start_points" />
-    <remap from="start_arrows_out" to="/visualization/start_arrows" />
-    <remap from="score_out" to="/score" />
-    <remap from="mission_time_out" to="/elapsed_time" />
-    <remap from="remaining_mission_time_out" to="/mission_time" />
-    <remap from="playback_status_out" to="/visualization/playback_status" />
-    <remap from="diagnostics_out" to="/visualization/diagnostics" />
-    <remap from="fullscreen_msg_out" to="/visualization/fullscreen_msg" />
-    <remap from="solution_time_out" to="/visualization/remaining_solution_time" />
-    <remap from="solution_penalty_out" to="/visualization/solution_penalty" />
-    <remap from="trajectories_valid_status_out" to="~trajectories_valid" />
+    <remap from="inspection_points_out" to="visualization/inspection_points" />
+    <remap from="view_points_out" to="visualization/view_points" />
+    <remap from="collisions_out" to="visualization/collisions" />
+    <remap from="cloud_out" to="visualization/obstacles" />
+    <remap from="safety_area_out" to="visualization/safety_area" />
+    <remap from="starting_points_out" to="visualization/start_points" />
+    <remap from="start_arrows_out" to="visualization/start_arrows" />
+    <remap from="score_out" to="score" />
+    <remap from="mission_time_out" to="elapsed_time" />
+    <remap from="remaining_mission_time_out" to="mission_time" />
+    <remap from="playback_status_out" to="visualization/playback_status" />
+    <remap from="diagnostics_out" to="visualization/diagnostics" />
+    <remap from="fullscreen_msg_out" to="visualization/fullscreen_msg" />
+    <remap from="solution_time_out" to="visualization/remaining_solution_time" />
+    <remap from="solution_penalty_out" to="visualization/solution_penalty" />
+    <remap from="trajectories_valid_status_out" to="~trajectories_valid" /> 
 
   </node>
 

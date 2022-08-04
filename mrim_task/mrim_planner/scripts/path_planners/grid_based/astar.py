@@ -9,6 +9,8 @@ from numpy import sqrt, argmin
 import numpy as np
 from queue import PriorityQueue
 
+import rospy
+
 # # #{ class Node
 class Node:
 
@@ -115,6 +117,24 @@ class AStar():
             return seg1
         
         return [pt1, pt2]
+    
+    
+    # seg_num = 3
+    # seg_list = [None]*seg_num
+    # for i in range(0, seg_num):                    
+    #     if i == 0:
+    #         start = 0
+    #     else:
+    #         start = int(len(path)/(seg_num * i))
+        
+    #     end = int(len(path)/(seg_num * i))
+    #     seg_list[i] = self.halveAndTest(path[start:end])
+
+    # seg_res = []
+    # for x in seg_list:
+    #     seg_res.append(x)
+        
+    # return seg_res
 
     def generatePath(self, m_start, m_goal):
         

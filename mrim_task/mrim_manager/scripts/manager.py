@@ -323,9 +323,9 @@ class MrimManager:
         if visualization_rviz:
             tmp_rviz_config = "/tmp/mrim_manager.rviz"
             self.visualizer_.setRvizConfig(rviz_config, tmp_rviz_config, self.evaluator_.inspection_problem.number_of_inspection_points,\
-                                           self.mission_time_limit, self.solution_time_constraint_soft, self.solution_time_constraint_hard,\
-                                           uav_names[0], uav_names[1])
-            rviz_proc = subprocess.Popen(['rviz', '-d', tmp_rviz_config], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                            self.mission_time_limit, self.solution_time_constraint_soft, self.solution_time_constraint_hard,\
+                                            uav_names[0], uav_names[1])
+            rviz_proc = subprocess.Popen(['rviz', '-d', tmp_rviz_config, '__ns:={}'.format(rospy.get_namespace())], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             rospy.Rate(0.2).sleep()
 
         # #} end of INITIALIZATION OF RVIZ VISUALIZER

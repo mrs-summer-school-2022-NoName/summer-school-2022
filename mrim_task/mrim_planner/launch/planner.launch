@@ -5,31 +5,104 @@
 
   <!-- DO NOT CHANGE BELOW -->
 
-  <node name="mrim_planner" pkg="mrim_planner" type="planner.py" output="screen" args="">
+  <!-- SINGLE TOWER -->
+  <group ns="single">
+    <node name="mrim_planner" pkg="mrim_planner" type="planner.py" output="screen" args="">
 
-    <!-- Default config -->
-    <rosparam file="$(find mrim_manager)/config/default_$(arg RUN_TYPE).yaml" command="load" />
+      <!-- Default config -->
+      <rosparam file="$(find mrim_manager)/config/default_$(arg RUN_TYPE).yaml" command="load" />
 
-    <!-- User custom config -->
-    <rosparam unless="$(eval arg('RUN_TYPE') == 'uav')"
-              file="$(find mrim_planner)/config/virtual.yaml" command="load" />
-    <rosparam if="$(eval arg('RUN_TYPE') == 'uav')"
-              file="$(find mrim_planner)/config/real_world.yaml" command="load" />
+      <!-- User custom config -->
+      <rosparam unless="$(eval arg('RUN_TYPE') == 'uav')"
+                file="$(find mrim_planner)/config/virtual.yaml" command="load" />
 
-    <!-- Remap publishers -->
-    <remap from="~problem_out"      to="~problem" />
-    <remap from="~trajectory_1_out" to="~trajectory_1" />
-    <remap from="~trajectory_2_out" to="~trajectory_2" />
+      <rosparam>
+        problem/name: "single_tower.problem"
+      </rosparam>
 
-  </node>
+      <rosparam if="$(eval arg('RUN_TYPE') == 'uav')"
+                file="$(find mrim_planner)/config/real_world.yaml" command="load" />
 
-  <include file="$(find mrim_manager)/launch/manager.launch" >
+      <!-- Remap publishers -->
+      <remap from="~problem_out"      to="~problem" />
+      <remap from="~trajectory_1_out" to="~trajectory_1" />
+      <remap from="~trajectory_2_out" to="~trajectory_2" />
 
-    <arg name="RUN_TYPE" value="$(arg RUN_TYPE)" />
-    <arg name="RVIZ_GUI" value="$(arg RVIZ_GUI)" />
+    </node>
 
-  </include>
+    <include file="$(find mrim_manager)/launch/manager.launch" >
 
+      <arg name="RUN_TYPE" value="$(arg RUN_TYPE)" />
+      <arg name="RVIZ_GUI" value="$(arg RVIZ_GUI)" />
+
+    </include>
+  </group>
+
+  <!-- FOUR TOWERS SMALL -->
+  <group ns="fourS">
+    <node name="mrim_planner" pkg="mrim_planner" type="planner.py" output="screen" args="">
+
+      <!-- Default config -->
+      <rosparam file="$(find mrim_manager)/config/default_$(arg RUN_TYPE).yaml" command="load" />
+
+      <!-- User custom config -->
+      <rosparam unless="$(eval arg('RUN_TYPE') == 'uav')"
+                file="$(find mrim_planner)/config/virtual.yaml" command="load" />
+
+      <rosparam>
+        problem/name: "four_towers_small.problem"
+      </rosparam>
+
+      <rosparam if="$(eval arg('RUN_TYPE') == 'uav')"
+                file="$(find mrim_planner)/config/real_world.yaml" command="load" />
+
+      <!-- Remap publishers -->
+      <remap from="~problem_out"      to="~problem" />
+      <remap from="~trajectory_1_out" to="~trajectory_1" />
+      <remap from="~trajectory_2_out" to="~trajectory_2" />
+
+    </node>
+
+    <include file="$(find mrim_manager)/launch/manager.launch" >
+
+      <arg name="RUN_TYPE" value="$(arg RUN_TYPE)" />
+      <arg name="RVIZ_GUI" value="$(arg RVIZ_GUI)" />
+
+    </include>
+  </group>
+
+  <!-- FOUR TOWERS LARGE -->
+  <group ns="fourL">
+    <node name="mrim_planner" pkg="mrim_planner" type="planner.py" output="screen" args="">
+
+      <!-- Default config -->
+      <rosparam file="$(find mrim_manager)/config/default_$(arg RUN_TYPE).yaml" command="load" />
+
+      <!-- User custom config -->
+      <rosparam unless="$(eval arg('RUN_TYPE') == 'uav')"
+                file="$(find mrim_planner)/config/virtual.yaml" command="load" />
+
+      <rosparam>
+        problem/name: "four_towers_large.problem"
+      </rosparam>
+
+      <rosparam if="$(eval arg('RUN_TYPE') == 'uav')"
+                file="$(find mrim_planner)/config/real_world.yaml" command="load" />
+
+      <!-- Remap publishers -->
+      <remap from="~problem_out"      to="~problem" />
+      <remap from="~trajectory_1_out" to="~trajectory_1" />
+      <remap from="~trajectory_2_out" to="~trajectory_2" />
+
+    </node>
+
+    <include file="$(find mrim_manager)/launch/manager.launch" >
+
+      <arg name="RUN_TYPE" value="$(arg RUN_TYPE)" />
+      <arg name="RVIZ_GUI" value="$(arg RVIZ_GUI)" />
+
+    </include>
+  </group>
   <!-- INCLUDE ANY OTHER NODES BELOW -->
 
 </launch>

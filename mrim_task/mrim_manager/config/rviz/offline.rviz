@@ -28,7 +28,7 @@ Panels:
     SyncSource: Obstacles
   - Class: jsk_rviz_plugin/PublishTopic
     Name: PublishTopic
-    Topic: /pause_playback
+    Topic: pause_playback
   - Class: jsk_rviz_plugin/YesNoButton
     Name: YesNoButton
 Preferences:
@@ -90,14 +90,14 @@ Visualization Manager:
           Size (Pixels): 3
           Size (m): 0.07999999821186066
           Style: Flat Squares
-          Topic: /visualization/obstacles
+          Topic: visualization/obstacles
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
         - Class: rviz/Marker
           Enabled: true
-          Marker Topic: /visualization/inspection_points
+          Marker Topic: visualization/inspection_points
           Name: Inspection points
           Namespaces:
             ip_ns: true
@@ -105,7 +105,7 @@ Visualization Manager:
           Value: true
         - Class: rviz/MarkerArray
           Enabled: true
-          Marker Topic: /visualization/view_points
+          Marker Topic: visualization/view_points
           Name: View points
           Namespaces:
             line_ns: true
@@ -114,7 +114,7 @@ Visualization Manager:
           Value: true
         - Class: rviz/Marker
           Enabled: true
-          Marker Topic: /visualization/safety_area
+          Marker Topic: visualization/safety_area
           Name: Safety area
           Namespaces:
             safety_area_ns: true
@@ -122,7 +122,7 @@ Visualization Manager:
           Value: true
         - Class: rviz/MarkerArray
           Enabled: true
-          Marker Topic: /visualization/start_points
+          Marker Topic: visualization/start_points
           Name: Starting poses
           Namespaces:
             sp_ns: true
@@ -130,7 +130,7 @@ Visualization Manager:
           Value: true
         - Class: rviz/MarkerArray
           Enabled: true
-          Marker Topic: /visualization/start_arrows
+          Marker Topic: visualization/start_arrows
           Name: Start direction
           Namespaces:
             arrow_ns: true
@@ -152,7 +152,7 @@ Visualization Manager:
           Overtake BG Color Properties: false
           Overtake FG Color Properties: false
           Overtake Position Properties: true
-          Topic: /visualization/diagnostics_jsk_1
+          Topic: visualization/diagnostics_jsk_1
           Value: true
           font: DejaVu Sans Mono
           height: 140
@@ -193,7 +193,7 @@ Visualization Manager:
             Shaft Length: 1
             Shaft Radius: 0.05000000074505806
             Value: Axes
-          Topic: /visualization/odom_1
+          Topic: visualization/odom_1
           Unreliable: false
           Value: true
         - Alpha: 1
@@ -217,12 +217,12 @@ Visualization Manager:
           Radius: 0.029999999329447746
           Shaft Diameter: 0.10000000149011612
           Shaft Length: 0.10000000149011612
-          Topic: /visualization/path_1
+          Topic: visualization/path_1
           Unreliable: false
           Value: true
         - Class: rviz/Marker
           Enabled: true
-          Marker Topic: /visualization/cone_1
+          Marker Topic: visualization/cone_1
           Name: Camera
           Namespaces:
             cone_ns2: true
@@ -242,7 +242,7 @@ Visualization Manager:
           Shaft Length: 0.23000000417232513
           Shaft Radius: 0.009999999776482582
           Shape: Arrow (Flat)
-          Topic: /visualization/horizon_1
+          Topic: visualization/horizon_1
           Unreliable: false
           Value: true
         - Buffer length: 200
@@ -250,7 +250,7 @@ Visualization Manager:
           Enabled: true
           Name: Velocity (m/s)
           Show Value: true
-          Topic: /visualization/velocity_1
+          Topic: visualization/velocity_1
           Value: true
           auto color change: true
           auto scale: true
@@ -275,7 +275,7 @@ Visualization Manager:
           Enabled: true
           Name: Acc. (m/s2)
           Show Value: true
-          Topic: /visualization/acceleration_1
+          Topic: visualization/acceleration_1
           Value: true
           auto color change: true
           auto scale: true
@@ -298,7 +298,7 @@ Visualization Manager:
         - Class: jsk_rviz_plugin/PieChart
           Enabled: true
           Name: Obst. dist.
-          Topic: /visualization/obstacle_distance_1
+          Topic: visualization/obstacle_distance_1
           Value: true
           auto color change: true
           background color: 0; 0; 0
@@ -321,7 +321,7 @@ Visualization Manager:
         - Class: jsk_rviz_plugin/PieChart
           Enabled: true
           Name: Travel. dist.
-          Topic: /visualization/traveled_dist_1
+          Topic: visualization/traveled_dist_1
           Value: true
           auto color change: false
           background color: 0; 0; 0
@@ -357,7 +357,7 @@ Visualization Manager:
           Overtake BG Color Properties: false
           Overtake FG Color Properties: false
           Overtake Position Properties: true
-          Topic: /visualization/diagnostics_jsk_2
+          Topic: visualization/diagnostics_jsk_2
           Value: true
           font: DejaVu Sans Mono
           height: 140
@@ -398,7 +398,7 @@ Visualization Manager:
             Shaft Length: 1
             Shaft Radius: 0.05000000074505806
             Value: Axes
-          Topic: /visualization/odom_2
+          Topic: visualization/odom_2
           Unreliable: false
           Value: true
         - Alpha: 1
@@ -422,12 +422,12 @@ Visualization Manager:
           Radius: 0.029999999329447746
           Shaft Diameter: 0.10000000149011612
           Shaft Length: 0.10000000149011612
-          Topic: /visualization/path_2
+          Topic: visualization/path_2
           Unreliable: false
           Value: true
         - Class: rviz/Marker
           Enabled: true
-          Marker Topic: /visualization/cone_2
+          Marker Topic: visualization/cone_2
           Name: Camera
           Namespaces:
             cone_ns1: true
@@ -447,7 +447,7 @@ Visualization Manager:
           Shaft Length: 0.23000000417232513
           Shaft Radius: 0.009999999776482582
           Shape: Arrow (Flat)
-          Topic: /visualization/horizon_2
+          Topic: visualization/horizon_2
           Unreliable: false
           Value: true
         - Buffer length: 200
@@ -455,7 +455,7 @@ Visualization Manager:
           Enabled: true
           Name: Velocity (m/s)
           Show Value: true
-          Topic: /visualization/velocity_2
+          Topic: visualization/velocity_2
           Value: true
           auto color change: true
           auto scale: true
@@ -480,7 +480,7 @@ Visualization Manager:
           Enabled: true
           Name: Acc. (m/s2)
           Show Value: true
-          Topic: /visualization/acceleration_2
+          Topic: visualization/acceleration_2
           Value: true
           auto color change: true
           auto scale: true
@@ -503,7 +503,7 @@ Visualization Manager:
         - Class: jsk_rviz_plugin/PieChart
           Enabled: true
           Name: Obst. dist.
-          Topic: /visualization/obstacle_distance_2
+          Topic: visualization/obstacle_distance_2
           Value: true
           auto color change: true
           background color: 0; 0; 0
@@ -526,7 +526,7 @@ Visualization Manager:
         - Class: jsk_rviz_plugin/PieChart
           Enabled: true
           Name: Travel. dist.
-          Topic: /visualization/traveled_dist_2
+          Topic: visualization/traveled_dist_2
           Value: true
           auto color change: false
           background color: 0; 0; 0
@@ -553,7 +553,7 @@ Visualization Manager:
         - Class: jsk_rviz_plugin/PieChart
           Enabled: true
           Name: Mutual dist.
-          Topic: /visualization/mutual_distance_2
+          Topic: visualization/mutual_distance_2
           Value: true
           auto color change: true
           background color: 0; 0; 0
@@ -577,7 +577,7 @@ Visualization Manager:
           Enabled: true
           Name: Remaining mission time (s)
           Show Value: true
-          Topic: /mission_time
+          Topic: mission_time
           Value: true
           Vertical Gauge: false
           auto color change: true
@@ -600,7 +600,7 @@ Visualization Manager:
         - Class: jsk_rviz_plugin/PieChart
           Enabled: true
           Name: Time elapsed
-          Topic: /elapsed_time
+          Topic: elapsed_time
           Value: true
           auto color change: false
           background color: 0; 0; 0
@@ -624,7 +624,7 @@ Visualization Manager:
           Enabled: true
           Name: Score
           Show Value: true
-          Topic: /score
+          Topic: score
           Value: true
           Vertical Gauge: false
           auto color change: true
@@ -656,7 +656,7 @@ Visualization Manager:
           Overtake BG Color Properties: false
           Overtake FG Color Properties: false
           Overtake Position Properties: true
-          Topic: /visualization/diagnostics
+          Topic: visualization/diagnostics
           Value: true
           font: DejaVu Sans Mono
           height: 128
@@ -677,7 +677,7 @@ Visualization Manager:
           Overtake BG Color Properties: false
           Overtake FG Color Properties: false
           Overtake Position Properties: true
-          Topic: /visualization/playback_status
+          Topic: visualization/playback_status
           Value: true
           font: DejaVu Sans Mono
           height: 30
@@ -690,7 +690,7 @@ Visualization Manager:
           Enabled: true
           Name: Remaining solution time (s)
           Show Value: true
-          Topic: /visualization/remaining_solution_time
+          Topic: visualization/remaining_solution_time
           Value: true
           Vertical Gauge: false
           auto color change: true
@@ -714,7 +714,7 @@ Visualization Manager:
           Enabled: true
           Name: Penalty time (s)
           Show Value: true
-          Topic: /visualization/solution_penalty
+          Topic: visualization/solution_penalty
           Value: true
           Vertical Gauge: false
           auto color change: true
@@ -746,7 +746,7 @@ Visualization Manager:
           Overtake BG Color Properties: false
           Overtake FG Color Properties: false
           Overtake Position Properties: true
-          Topic: /visualization/fullscreen_msg
+          Topic: visualization/fullscreen_msg
           Value: true
           font: DejaVu Sans Mono
           height: 80
@@ -757,7 +757,7 @@ Visualization Manager:
           width: 2500
         - Class: rviz/Marker
           Enabled: true
-          Marker Topic: /visualization/collisions
+          Marker Topic: visualization/collisions
           Name: Collisions
           Namespaces:
             {}
@@ -781,14 +781,14 @@ Visualization Manager:
     - Class: rviz/Measure
     - Class: rviz/SetInitialPose
       Theta std deviation: 0.2617993950843811
-      Topic: /initialpose
+      Topic: initialpose
       X std deviation: 0.5
       Y std deviation: 0.5
     - Class: rviz/SetGoal
-      Topic: /move_base_simple/goal
+      Topic: move_base_simple/goal
     - Class: rviz/PublishPoint
       Single click: true
-      Topic: /clicked_point
+      Topic: clicked_point
     - Class: jsk_rviz_plugin/OverlayPicker
   Value: true
   Views:

@@ -70,19 +70,19 @@ class Visualizer:
         global_options_found = False
 
         for line in fin:
-            if "Topic: /score" in line:
+            if "Topic: score" in line:
                 score_found = True
 
-            if "Topic: /mission_time" in line:
+            if "Topic: mission_time" in line:
                 mission_time_found = True
 
-            if "Topic: /elapsed_time" in line:
+            if "Topic: elapsed_time" in line:
                 elapsed_time_found = True
 
-            if "Topic: /visualization/solution_penalty" in line:
+            if "Topic: visualization/solution_penalty" in line:
                 solution_penalty_found = True
 
-            if "Topic: /visualization/remaining_solution_time" in line:
+            if "Topic: visualization/remaining_solution_time" in line:
                 solution_time_found = True
 
             if "Global Options:" in line:
