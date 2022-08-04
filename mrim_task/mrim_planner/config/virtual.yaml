@@ -4,7 +4,7 @@ problem:
 
 # Parameters for Traveling Salesman Problem
 tsp:
-  clustering: 'kmeans'            # [STUDENTS TODO: implement better method than the default] Clustering method of viewpoints: [random (default), kmeans, gaussian]
+  clustering: 'kmeans'           # [STUDENTS TODO: implement better method than the default] Clustering method of viewpoints: [random (default), kmeans, gaussian]
   distance_estimates: 'euclidean' # Method for evaluating cost of paths in TSP heuristic: [euclidean (default), astar, rrt, rrtstar]
 
 # Parameters for path planning
@@ -25,11 +25,11 @@ path_planner:
 
   # A* method parameters
   astar:
-    grid_resolution: 0.35 # (m)
+    grid_resolution: 0.37 # (m)
 
 # Parameters for path smoothing
 path_smoothing:
-  sampling_step: 0.4  # (m)
+  sampling_step: 0.5  # (m)
   lookahead_dist: 0.5 # (m)
 
   # sampling_step: 0.4  # (m)
