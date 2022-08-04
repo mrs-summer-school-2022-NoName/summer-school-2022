@@ -292,15 +292,9 @@ class TSPSolver3D():
             for gaussian_cluster in gaussian_clusters:
                 # get data points that fall in this cluster
                 index = np.where(gaussian_result == gaussian_cluster)
-                labels[index] = index
+                labels[index] = gaussian_cluster
 
-            cluster_0_center = np.mean(positions[0])
-            cluster_1_center = np.mean(positions[1])
-            for i in range(len(positions)):
-                if labels[i] == 0 and np.linalg.norm(cluster_1_center-positions[i])< np.linalg.norm(cluster_0_center-positions[i]):
-                    labels[i] = 1
-                elif labels[i] == 1 and np.linalg.norm(cluster_0_center-positions[i]) < np.linalg.norm(cluster_1_center-positions[i]):
-                    labels[i] = 0
+
             #  - after finding the labels, you may want to swap the classes (e.g., by looking at the distance of the UAVs from the cluster centers)
             clusters = []
             for r in range(k):
@@ -335,7 +329,7 @@ class TSPSolver3D():
             print(positions)
 
             
-            kmeans_model = KMeans(n_clusters=2, random_state=0)            # assign each data point to a cluster
+            kmeans_model = KMeans(n_clusters=2)            # assign each data point to a cluster
             kmeans_result = kmeans_model.fit_predict(positions)
             # get all of the unique clusters
             kmeans_clusters = np.unique(kmeans_result)            
@@ -343,20 +337,22 @@ class TSPSolver3D():
             for kmeans_cluster in kmeans_clusters:
                 # get data points that fall in this cluster
                 index = np.where(kmeans_result == kmeans_cluster)
-                labels[index] = index
-                labels[index] = index
+                labels[index] = kmeans_cluster
                 if kmeans_cluster == 0:
                     cluster_0_center = np.mean(positions[index])
                 else:
                     cluster_1_center = np.mean(positions[index])            
                     
-            for i in range(len(positions)):
-                if labels[i] == 0 and np.linalg.norm(cluster_1_center - positions[i]) < np.linalg.norm(
-                        cluster_0_center - positions[i]):
-                    labels[i] = 1
-                elif labels[i] == 1 and np.linalg.norm(cluster_0_center - positions[i]) < np.linalg.norm(
-                        cluster_1_center - positions[i]):
-                    labels[i] = 0
+            print("labels");print(labels)
+            # for i in range(len(positions)):
+            #     if labels[i] == 0 and np.linalg.norm(cluster_1_center - positions[i]) < np.linalg.norm(
+            #             cluster_0_center - positions[i]):
+            #         labels[i] = 1
+            #     elif labels[i] == 1 and np.linalg.norm(cluster_0_center - positions[i]) < np.linalg.norm(
+            #             cluster_1_center - positions[i]):
+            #         labels[i] = 0
+
+
             #  - after finding the labels, you may want to swap the classes (e.g., by looking at the distance of the UAVs from the cluster centers)
             clusters = []
             for r in range(k):
@@ -364,7 +360,7 @@ class TSPSolver3D():
                 for label in range(len(labels)):
                     if labels[label] == r:
                         clusters[r].append(viewpoints[label])            
-                
+            print("clusters");print(clusters[0]);print(clusters[1])
             return clusters
 
 
